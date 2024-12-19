@@ -20,13 +20,10 @@ public class CambiarEstadoUsuarioServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         try {
-            // Obtener el estado actual del usuario
             boolean estadoActual = usuarioDAO.obtenerEstadoUsuario(id);
 
-            // Cambiar al estado opuesto
             usuarioDAO.cambiarEstadoUsuario(id, !estadoActual);
 
-            // Redirigir a la lista de usuarios
             response.sendRedirect("usuarios");
         } catch (SQLException e) {
             throw new ServletException("Error al cambiar el estado del usuario", e);

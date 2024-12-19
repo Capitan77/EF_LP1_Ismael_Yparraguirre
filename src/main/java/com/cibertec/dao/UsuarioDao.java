@@ -17,7 +17,7 @@ public interface UsuarioDao {
     void editarUsuario(Usuario usuario) throws SQLException;
 
     boolean obtenerEstadoUsuario(int id) throws SQLException;
-    //
+
     void cambiarEstadoUsuario(int id, boolean activo) throws SQLException;
 
 }

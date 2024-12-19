@@ -66,7 +66,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public Usuario validarUsuario(String correo, String clave) throws SQLException {
-        String query = "SELECT * FROM Usuario WHERE correo = ? AND clave = ?";
+        String query = "SELECT * FROM Usuario WHERE correo = ? AND clave = ? AND activo = 1";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -88,7 +88,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
             throw new RuntimeException("Error al conectar con la base de datos.", e);
         }
 
-        return null;
+        return null; // Devuelve null si no encuentra un usuario válido.
     }
 
     @Override
@@ -146,8 +146,9 @@ public class UsuarioDaoImpl implements UsuarioDao {
         return activo;
     }
 
-    public void cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) {
-        String sql = "UPDATE usuarios SET activo = ? WHERE id = ?";
+    @Override
+    public void cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) throws SQLException {
+        String sql = "UPDATE Usuario SET activo = ? WHERE id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setBoolean(1, nuevoEstado);
@@ -155,8 +156,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Error al cambiar el estado del usuario.", e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }

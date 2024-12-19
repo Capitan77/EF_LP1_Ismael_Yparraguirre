@@ -33,7 +33,7 @@
                 <td>
                     <a href="editarUsuario?id=${usuario.id}" class="btn btn-warning btn-sm">Editar</a>
                     <a href="cambiarEstadoUsuario?id=${usuario.id}" class="btn ${usuario.activo ? 'btn-danger' : 'btn-success'} btn-sm">
-                        ${usuario.activo ? "Desactivar" : "Activar"}
+                       ${usuario.activo ? "Desactivar" : "Activar"}
                     </a>
                 </td>
             </tr>

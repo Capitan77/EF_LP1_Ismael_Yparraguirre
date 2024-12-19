@@ -19,9 +19,15 @@
             <input type="text" class="form-control" id="apellido" name="apellido" value="${usuario.apellido}" required>
         </div>
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo Electrónico</label>
+            <label for="correo" class="form-label">Correo Electronico</label>
             <input type="email" class="form-control" id="correo" name="correo" value="${usuario.correo}" required>
         </div>
+
+        <div class="mb-3">
+            <label for="clave" class="form-label">Contrasena</label>
+            <input type="password" class="form-control" id="clave" name="clave" value="${usuario.clave}" required>
+        </div>
+
         <div class="mb-3">
             <label for="activo" class="form-label">Activo</label>
             <input type="checkbox" id="activo" name="activo" value="true" ${usuario.activo ? "checked" : ""}>

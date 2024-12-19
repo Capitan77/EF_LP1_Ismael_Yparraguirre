@@ -125,4 +125,38 @@ public class UsuarioDaoImpl implements UsuarioDao {
             throw new RuntimeException("Error al conectar con la base de datos.", e);
         }
     }
+
+    @Override
+    public boolean obtenerEstadoUsuario(int idUsuario) throws SQLException {
+        boolean activo = false;
+        String sql = "SELECT activo FROM usuarios WHERE id = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    activo = rs.getBoolean("activo");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return activo;
+    }
+
+    public void cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) {
+        String sql = "UPDATE usuarios SET activo = ? WHERE id = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setBoolean(1, nuevoEstado);
+            ps.setInt(2, idUsuario);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

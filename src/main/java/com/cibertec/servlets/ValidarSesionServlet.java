@@ -29,10 +29,11 @@ public class ValidarSesionServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 response.sendRedirect("usuarios");
-            } else {
+            } else{
                 request.setAttribute("error", "Usuario o contraseña incorrectos.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
+
         } catch (SQLException e) {
             throw new ServletException("Error al validar usuario", e);
         }

@@ -17,11 +17,11 @@
             <input type="text" class="form-control" id="apellido" name="apellido" required>
         </div>
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo Electrónico</label>
+            <label for="correo" class="form-label">Correo Electronico</label>
             <input type="email" class="form-control" id="correo" name="correo" required>
         </div>
         <div class="mb-3">
-            <label for="clave" class="form-label">Contraseña</label>
+            <label for="clave" class="form-label">Contrasenia</label>
             <input type="password" class="form-control" id="clave" name="clave" required>
         </div>
         <div class="mb-3">

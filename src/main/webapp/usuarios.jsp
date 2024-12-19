@@ -18,7 +18,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>Correo</th>
-            <th>Activo</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -29,11 +29,12 @@
                 <td>${usuario.nombre}</td>
                 <td>${usuario.apellido}</td>
                 <td>${usuario.correo}</td>
-                <td>${usuario.activo ? "Sí" : "No"}</td>
+                <td>${usuario.activo ? "Activo" : "Desactivado"}</td>
                 <td>
                     <a href="editarUsuario?id=${usuario.id}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="eliminarUsuario?id=${usuario.id}" class="btn btn-danger btn-sm"
-                       onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
+                    <a href="cambiarEstadoUsuario?id=${usuario.id}" class="btn ${usuario.activo ? 'btn-danger' : 'btn-success'} btn-sm">
+                        ${usuario.activo ? "Desactivar" : "Activar"}
+                    </a>
                 </td>
             </tr>
         </c:forEach>

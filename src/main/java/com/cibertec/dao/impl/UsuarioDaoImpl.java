@@ -93,7 +93,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public void registrarUsuario(Usuario usuario) throws SQLException {
-        String query = "INSERT INTO Usuario (nombre, apellido, correo, clave, activo) VALUES (?, ?, ?, ?, true)";
+        String query = "INSERT INTO Usuario (nombre, apellido, correo, clave) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 

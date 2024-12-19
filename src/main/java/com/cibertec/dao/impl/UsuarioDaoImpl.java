@@ -93,7 +93,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 
     @Override
     public void registrarUsuario(Usuario usuario) throws SQLException {
-        String query = "INSERT INTO Usuario (nombre, apellido, correo, clave, activo) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Usuario (nombre, apellido, correo, clave, activo) VALUES (?, ?, ?, ?, true)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -101,16 +101,14 @@ public class UsuarioDaoImpl implements UsuarioDao {
             ps.setString(2, usuario.getApellido());
             ps.setString(3, usuario.getCorreo());
             ps.setString(4, usuario.getClave());
-            ps.setBoolean(5, usuario.isActivo());
             ps.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Error al conectar con la base de datos.", e);
         }
     }
-
     @Override
     public void editarUsuario(Usuario usuario) throws SQLException {
-        String query = "UPDATE Usuario SET nombre = ?, apellido = ?, correo = ?, clave = ?, activo = ? WHERE id = ?";
+        String query = "UPDATE Usuario SET nombre = ?, apellido = ?, correo = ?, clave = ? WHERE id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -118,49 +116,42 @@ public class UsuarioDaoImpl implements UsuarioDao {
             ps.setString(2, usuario.getApellido());
             ps.setString(3, usuario.getCorreo());
             ps.setString(4, usuario.getClave());
-            ps.setBoolean(5, usuario.isActivo());
-            ps.setInt(6, usuario.getId());
+            ps.setInt(5, usuario.getId());
             ps.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Error al conectar con la base de datos.", e);
         }
     }
-
     @Override
-    public boolean obtenerEstadoUsuario(int idUsuario) throws SQLException {
-        boolean activo = false;
-        String sql = "SELECT activo FROM usuarios WHERE id = ?";
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, idUsuario);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    activo = rs.getBoolean("activo");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return activo;
-    }
-
-    @Override
-    public void cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) throws SQLException {
+    public void cambiarEstadoUsuario(int id, boolean activo) throws SQLException {
         String sql = "UPDATE Usuario SET activo = ? WHERE id = ?";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setBoolean(1, nuevoEstado);
-            ps.setInt(2, idUsuario);
+            ps.setBoolean(1, activo);
+            ps.setInt(2, id);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new SQLException("Error al cambiar el estado del usuario.", e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public boolean obtenerEstadoUsuario(int id) throws SQLException {
+        String sql = "SELECT activo FROM Usuario WHERE id = ?";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("activo");
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
 
 
 }

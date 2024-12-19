@@ -28,10 +28,7 @@
             <input type="password" class="form-control" id="clave" name="clave" value="${usuario.clave}" required>
         </div>
 
-        <div class="mb-3">
-            <label for="activo" class="form-label">Activo</label>
-            <input type="checkbox" id="activo" name="activo" value="true" ${usuario.activo ? "checked" : ""}>
-        </div>
+
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         <a href="usuarios" class="btn btn-secondary">Cancelar</a>
     </form>

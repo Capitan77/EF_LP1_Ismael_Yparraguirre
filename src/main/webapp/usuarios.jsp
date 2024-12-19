@@ -9,7 +9,9 @@
 <div class="container mt-5">
     <h1 class="text-center">Usuarios Registrados</h1>
 
-    <a href="registroUsuario.jsp" class="btn btn-primary mb-3">Registrar Nuevo Usuario</a>
+    <a href="registroUsuario.jsp" class="btn btn-primary mb-3 ">Registrar Nuevo Usuario</a>
+
+    <a href="CerrarSesion" class="btn btn-danger mb-3 ">Cerrar Sesion</a>
 
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
@@ -23,21 +25,22 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="usuario" items="${usuarios}">
-            <tr>
-                <td>${usuario.id}</td>
-                <td>${usuario.nombre}</td>
-                <td>${usuario.apellido}</td>
-                <td>${usuario.correo}</td>
-                <td>${usuario.activo ? "Activo" : "Desactivado"}</td>
-                <td>
-                    <a href="editarUsuario?id=${usuario.id}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="cambiarEstadoUsuario?id=${usuario.id}" class="btn ${usuario.activo ? 'btn-danger' : 'btn-success'} btn-sm">
-                       ${usuario.activo ? "Desactivar" : "Activar"}
-                    </a>
-                </td>
-            </tr>
-        </c:forEach>
+      <c:forEach var="usuario" items="${usuarios}">
+          <tr class="${usuario.activo ? '' : 'table-secondary'}" style="${usuario.activo ? '' : 'opacity: 0.5;'}">
+              <td>${usuario.id}</td>
+              <td>${usuario.nombre}</td>
+              <td>${usuario.apellido}</td>
+              <td>${usuario.correo}</td>
+              <td>${usuario.activo ? "Activo" : "Desactivado"}</td>
+              <td>
+                  <a href="editarUsuario?id=${usuario.id}" class="btn btn-warning btn-sm">Editar</a>
+                  <a href="cambiarEstadoUsuario?id=${usuario.id}"
+                     class="btn ${usuario.activo ? 'btn-danger' : 'btn-success'} btn-sm">
+                     ${usuario.activo ? "Desactivar" : "Activar"}
+                  </a>
+              </td>
+          </tr>
+      </c:forEach>
         </tbody>
     </table>
 </div>

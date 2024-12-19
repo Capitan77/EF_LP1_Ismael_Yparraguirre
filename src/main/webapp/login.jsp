@@ -9,9 +9,11 @@
 <div class="container mt-5">
     <h1 class="text-center">Inicio de Sesión</h1>
 
-    <c:if test="${not empty error}">
-        <div class="alert alert-danger">${error}</div>
-    </c:if>
+        <% if (request.getAttribute("error") != null) { %>
+            <div class="alert alert-danger">
+                <%= request.getAttribute("error") %>
+            </div>
+        <% } %>
 
     <form action="ValidarSesion" method="post" class="card p-4 shadow-lg">
         <div class="mb-3">

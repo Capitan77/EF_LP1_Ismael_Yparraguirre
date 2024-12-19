@@ -24,10 +24,7 @@
             <label for="clave" class="form-label">Contrasenia</label>
             <input type="password" class="form-control" id="clave" name="clave" required>
         </div>
-        <div class="mb-3">
-            <label for="activo" class="form-label">Activo</label>
-            <input type="checkbox" id="activo" name="activo" value="true" checked>
-        </div>
+
         <button type="submit" class="btn btn-success">Registrar</button>
         <a href="usuarios" class="btn btn-secondary">Cancelar</a>
     </form>

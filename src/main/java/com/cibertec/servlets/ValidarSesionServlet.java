@@ -26,11 +26,16 @@ public class ValidarSesionServlet extends HttpServlet {
             Usuario usuario = usuarioDAO.validarUsuario(correo, clave);
 
             if (usuario != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("usuario", usuario);
-                response.sendRedirect("usuarios");
-            } else{
-                request.setAttribute("error", "Usuario o contraseña incorrectos.");
+                if (usuario.isActivo()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("usuario", usuario);
+                    response.sendRedirect("usuarios");
+                } else {
+                    request.setAttribute("error", "El usuario está desactivado.");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("error", "Correo o contraseña incorrectos.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
 

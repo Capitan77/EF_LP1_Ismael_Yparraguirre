@@ -25,19 +25,13 @@ public class RegistrarUsuarioServlet extends HttpServlet {
             return;
         }
 
-
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
         String correo = request.getParameter("correo");
         String clave = request.getParameter("clave");
 
-
-        boolean activo = Boolean.parseBoolean(request.getParameter("activo"));
-
         try {
-
-            Usuario usuario = new Usuario(0, nombre, apellido, correo, clave, activo);
-
+            Usuario usuario = new Usuario(0, nombre, apellido, correo, clave, true);
             usuarioDAO.registrarUsuario(usuario);
 
             response.sendRedirect("usuarios");
